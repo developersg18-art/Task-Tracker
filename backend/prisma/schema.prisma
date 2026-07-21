@@ -1,0 +1,38 @@
+// Prisma schema — Task Tracker
+// Single Task table. Free-form category string (per CLAUDE.md).
+// Source of truth for Task shape. Mirror in backend TS type + frontend interface.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  TODO
+  IN_PROGRESS
+  COMPLETED
+
+  @@map("task_status")
+}
+
+model Task {
+  id           String    @id @default(uuid()) @db.Uuid
+  title        String    @db.VarChar(200)
+  description  String?   @db.Text
+  category     String?   @db.VarChar(50)
+  status       Status    @default(TODO)
+  dueDate      DateTime? @db.Date @map("due_date")
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime  @default(now()) @updatedAt       @map("updated_at") @db.Timestamptz(6)
+  completedAt  DateTime? @map("completed_at") @db.Timestamptz(6)
+
+  @@index([status])
+  @@index([category])
+  @@index([dueDate])
+  @@index([createdAt])
+  @@map("tasks")
+}
