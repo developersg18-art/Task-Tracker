@@ -1,13 +1,13 @@
-import type { TaskStatus, TaskPriority } from '@prisma/client';
+import type { Status } from '@prisma/client';
 
 export interface Task {
   id: string;
   title: string;
   description: string | null;
+  category: string | null;
+  status: Status;
   dueDate: Date | null;
-  status: TaskStatus;
-  priority: TaskPriority;
-  categoryId: string | null;
+  completedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -15,10 +15,10 @@ export interface Task {
 export type CreateTaskInput = {
   title: string;
   description?: string | null;
+  category?: string | null;
+  status?: Status;
   dueDate?: Date | string | null;
-  status?: TaskStatus;
-  priority?: TaskPriority;
-  categoryId?: string | null;
+  completedAt?: Date | string | null;
 };
 
 export type UpdateTaskInput = Partial<CreateTaskInput>;

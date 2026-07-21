@@ -5,7 +5,6 @@ import { requestLogger } from './middlewares/request-logger';
 import { errorHandler } from './middlewares/error-handler';
 import { notFoundHandler } from './middlewares/not-found';
 import { taskRouter } from './modules/tasks/task.routes';
-import { categoryRouter } from './modules/categories/category.routes';
 
 export function createApp(): Application {
   const app = express();
@@ -20,7 +19,6 @@ export function createApp(): Application {
   });
 
   app.use('/api/tasks', taskRouter);
-  app.use('/api/categories', categoryRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

@@ -5,10 +5,10 @@ const taskSelect = {
   id: true,
   title: true,
   description: true,
-  dueDate: true,
+  category: true,
   status: true,
-  priority: true,
-  categoryId: true,
+  dueDate: true,
+  completedAt: true,
   createdAt: true,
   updatedAt: true,
 } as const;
